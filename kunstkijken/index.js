@@ -1,41 +1,34 @@
 // Require third-party modules
 const express = require('express');
 const request = require('request');
+const bodyParser = require('body-parser');
 
 // Config object
-const config = {
-	port: 3000
-}
+const config = { port: 3000 }
 
-// Create new express app in 'app'
 const app = express();
-// Link the templating engine to the express app
+
 app.set('view engine', 'ejs');
-// Tell the views engine/ejs where the template files are stored (Settingname, value)
 app.set('views', 'views');
 
-// Tell express to use a 'static' folder
-// If the url matches a file it will send that file
-// Sending something (responding) ends the response cycle
 app.use(express.static('public'));
 
-// Create a home route
-app.get('/', function(req, res) {
-	// Send a plain string using res.send();
-	res.send('Hello world');
-});
+// use bodyParser
+app.use(bodyParser.urlencoded({ extended: true}))
+app.use(bodyParser.json())
 
 // Create a route for our overview page
-app.get('/posts', function(req, res) {
-	request('https://jsonplaceholder.typicode.com/posts', {json: true}, function (err, requestRes, body){
+app.get('/', function(req, res) {
+	const endpoint = 'https://www.rijksmuseum.nl/api/nl/collection/';
+	const key = 'SM7rr6VN';
+	const url = `${endpoint}?key=${key}`;	
+	request(`${url}`, {json: true}, function (err, requestRes, body){
 		if (err) {
-			// We got an error
 			res.send(err);
 		} else {
-			// Render the page using the 'posts' view and our body data
 			res.render('posts', {
-				title: 'Posts', // We use this for the page title, see views/partials/head.ejs
-				postData: body
+				title: 'Posts', 
+				postData: body.artObjects
 			});
 		}
 	});
@@ -43,7 +36,12 @@ app.get('/posts', function(req, res) {
 
 // Create a route for our detail page
 app.get('/post/:id', function(req, res) {
-	request(`https://jsonplaceholder.typicode.com/posts/${req.params.id}`, {json: true}, function (err, requestRes, body){
+	const endpoint = 'https://www.rijksmuseum.nl/api/nl/collection';
+	const key = 'SM7rr6VN';	
+	const url = `${endpoint}/${req.params.id}?key=${key}`;
+	const testUrl = `https://www.rijksmuseum.nl/api/nl/collection/SK-C-5?key=SM7rr6VN`;
+	console.log(url)
+	request(testUrl, {json: true}, function (err, requestRes, body){
 		if (err) {
 			// We got an error
 			res.send(err);
@@ -51,7 +49,7 @@ app.get('/post/:id', function(req, res) {
 			// Render the page using the 'post' view and our body data
 			res.render('post', {
 				title: `Post ${req.params.id}`, 
-				postData: body
+				postData: body.artObject
 			});
 		}
 	});

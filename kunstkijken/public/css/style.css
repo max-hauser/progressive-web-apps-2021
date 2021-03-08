@@ -1,0 +1,210 @@
+body{
+  background-color: #101010;
+  color: #fff;
+  margin: 0;
+}
+
+header {
+  background-color: #000;
+  padding: 1vw;
+  position: fixed;
+  width: 100vw;
+  z-index: 999;
+  text-align: center;
+  top: 0;
+  display: flex;
+  justify-content: space-around;
+  color: #fff;
+  align-items: center;
+}
+
+header a{
+  color: #fff;
+  padding: 1vw;
+  font-size: 1.5em;
+  text-decoration: none;
+}
+
+main.overview,
+main.artist {
+  display: flex;
+  margin: 0 auto;
+  overflow-x: scroll;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+span {
+  display: flex;
+  width: 100%;
+}
+
+.card {
+  position: absolute;
+  opacity: 0;
+  display: flex;
+  flex-direction: column;  
+  justify-content: center;
+  align-items: center;
+  max-width: 20vw;  
+  z-index: -1;
+  box-shadow: 0 10px 6px -6px #000;
+}
+
+.card:nth-child(1){
+  opacity: 1;
+  z-index: 2;
+}
+
+.card img{
+  object-fit: cover;
+  width: 100%;
+}
+
+main.overview .card a, .card button,
+main.artist .card a, .card button {
+  width: 50%;
+  display: inline-block;
+  margin: 0px;
+  border: none;
+  padding: 15px;
+  background: #f1f1f1;
+  color: #000;
+  text-decoration: none;
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 1em;  
+}
+
+main.overview .card a,
+main.artist .card a{
+  background-color: green;
+  color: #fff;
+}
+
+main.overview .card button,
+main.artist .card button{
+  background-color: red;
+  color: #fff;
+}
+
+main.overview .card button:hover,
+main.artist .card button:hover{
+  cursor: pointer;
+}
+
+a div{
+  position: relative;
+  overflow: hidden;
+  border: 15px solid #000;
+  background-color: #fff;
+  color: #000;
+  padding: 2vw;
+  box-shadow: 0px 0px 20px #000;
+}
+
+main.detail{
+  padding-top: 20vh;
+  display: grid;
+  grid-template-columns: 35vw 50vw;
+  grid-template-rows: auto auto 10vh auto;
+  grid-template-areas: 
+    "terug  terug"
+    "header header"
+    "main sideheader"
+    "main sidebar";  
+    width: 80vw;
+    margin: 0px auto;
+}
+
+main.detail .terug{
+  grid-area: terug;
+  color: #000;
+  background-color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 25px;
+  display: inline-block;
+  width: 10vw;
+  font-weight: bold;
+  text-align: center;
+  opacity: 0.3;
+  transition: 0.3s;
+}
+
+main.detail .terug:hover{
+  opacity: 1;
+}
+
+main.detail h1{
+  grid-area: header;
+}
+
+main.detail h3{
+  font-weight: bold;
+}
+
+main.detail img{
+  max-width: 30vw;
+  grid-area: main;
+}
+
+main.detail .meta{
+  grid-area: sideheader;
+}
+main.detail .description{
+  grid-area: sidebar;
+}
+
+main.artist a {
+  display: inline-block;
+}
+
+form{
+  text-align: left;
+}
+
+input#search {
+  border: none;
+  color: #fff;
+  background-color: #444242;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-left: 0px;
+  margin-left: -1px;
+}
+
+input#query{
+  padding: 5px;
+  border: none;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.noResults{
+  text-align: center;
+}
+
+.noResults h3{
+  font-size: 3vw;
+}
+
+.noResults a{
+  text-decoration: none;
+  color: #fff;
+}
+
+.loading{
+  border: 16px solid #333;
+  border-radius: 50%;
+  border-top: 16px solid #444;
+  width: 100px;
+  height: 100px;  
+  animation: load 0.8s ease infinite;
+}
+
+@keyframes load{
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }  
+}

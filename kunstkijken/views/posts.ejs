@@ -1,0 +1,14 @@
+<%- include ("./partials/head.ejs") %>
+
+<% postData.forEach(function(post) { %>
+	<div class="card">
+			<%- post.title %>
+			<img src="<%- post.webImage.url%>">
+			<span>
+				<a href="/post/<%- post.id %>">Meer info</a>
+				<button id="next">Volgende</button>
+			</span>		
+	</div>
+<% }) %>
+
+<%- include ("./partials/footer.ejs") %>
