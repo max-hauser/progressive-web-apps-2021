@@ -1,14 +1,14 @@
 {
   "name": "node-simple-api",
   "version": "1.0.0",
-  "description": "Simple Node API example",
+  "description": "Simple Node API project",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Stef van Dijk",
+  "author": "Max Hauser",
   "license": "ISC",
   "dependencies": {
     "ejs": "^2.6.1",
