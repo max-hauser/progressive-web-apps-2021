@@ -1,6 +1,6 @@
-<%- include ("./partials/head.ejs") %>
-
-<% postData.forEach(function(post) { %>
+<% console.log(postData) %>
+<%- include('./partials/head.ejs'); -%>
+<% postData.artObjects.forEach(function(post) { %>
 	<div class="card">
 			<%- post.title %>
 			<img src="<%- post.webImage.url%>">
@@ -10,5 +10,4 @@
 			</span>		
 	</div>
 <% }) %>
-
-<%- include ("./partials/footer.ejs") %>
+<%- include('./partials/footer.ejs'); -%>
