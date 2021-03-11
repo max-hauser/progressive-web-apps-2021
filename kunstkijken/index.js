@@ -36,17 +36,20 @@ app.get('/', function(req, res) {
 
 // Create a route for our detail page
 app.get('/post/:id', function(req, res) {
+
 	const endpoint = 'https://www.rijksmuseum.nl/api/nl/collection';
 	const key = 'SM7rr6VN';	
 	const url = `${endpoint}/${req.params.id}?key=${key}`;
-	const testUrl = `https://www.rijksmuseum.nl/api/nl/collection/SK-C-5?key=SM7rr6VN`;
+	
 	console.log(url)
-	request(testUrl, {json: true}, function (err, requestRes, body){
+
+	request(url, {json: true}, function (err, requestRes, body){
 		if (err) {
 			// We got an error
 			res.send(err);
 		} else {
-			// Render the page using the 'post' view and our body data
+			console.log(body);
+			//Render the page using the 'post' view and our body data
 			res.render('post', {
 				title: `Post ${req.params.id}`, 
 				postData: body.artObject

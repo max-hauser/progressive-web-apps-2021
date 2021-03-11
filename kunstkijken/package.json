@@ -11,7 +11,6 @@
   "author": "Stef van Dijk",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.19.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "nodemon": "^2.0.7",
