@@ -1,4 +1,5 @@
 // Require third-party modules
+require('dotenv').config();
 const express = require('express');
 const fetch = require('node-fetch');
 
@@ -6,24 +7,22 @@ const fetch = require('node-fetch');
 const config = { port: 3000 }
 const app = express();
 
-app.set('view engine', 'ejs');
-app.set('views', 'views');
-app.use(express.static('public'));
+const endpoint = process.env.ENDPOINT;
+const key = process.env.KEY;
 
-const endpoint = 'https://www.rijksmuseum.nl/api/nl/collection/';
-const key = 'SM7rr6VN';
+app.set('view engine', 'ejs').
+set('views', 'views').
+use(express.static('public')).
+get('/post', function(req, res) { res.redirect('/posts'); }).
+listen(config.port, function() { console.log(`Application started on port: ${config.port}`);});
 
-// Actually set up the server
-app.listen(config.port, function() {
-	console.log(`Application started on port: ${config.port}`);
-});
 
 // Create a route for our overview page
 app.get('/', function(req, res) {
 	const url = `${endpoint}?key=${key}`;	
 	fetch(url).then(res => res.json()).then(data => {
 		res.render('posts', {
-			title: 'Posts', // We use this for the page title, see views/partials/head.ejs
+			title: 'Home', 
 			postData: data
 		});	
 	});
@@ -39,10 +38,3 @@ app.get('/post/:id', function(req, res) {
 		});	
 	});	
 });
-
-// Make sure to catch /post to /posts
-app.get('/post', function(req, res) {
-	// Redirect the client using res.redirect (this will create a new request)
-	res.redirect('/posts');
-});
-

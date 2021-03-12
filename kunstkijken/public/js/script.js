@@ -24,8 +24,16 @@ function next(){
   }
 }
 
+function initSearch(event) {
+  event.preventDefault();
+  const query = document.querySelector('#query').value;
+  console.log(query)  
+}
+
 (function(){
-  // document.querySelector('#search').addEventListener('click', initSearch, false);
+  if(e.target && e.target.id== 'search'){
+    document.querySelector('#search').addEventListener('click', initSearch, false);
+  }
   document.addEventListener('click',function(e){
     if(e.target && e.target.id== 'next'){
           next();
