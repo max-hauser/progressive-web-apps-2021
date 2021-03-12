@@ -1,9 +1,8 @@
-// Require third-party modules
 require('dotenv').config();
 const express = require('express');
 const fetch = require('node-fetch');
 
-// Config object
+
 const config = { port: 3000 }
 const app = express();
 
