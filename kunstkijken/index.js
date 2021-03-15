@@ -6,6 +6,10 @@ const fetch = require('node-fetch');
 const config = { port: 3000 }
 
 const { PORT=3000, LOCAL_ADDRESS='0.0.0.0' } = process.env
+// server.listen(PORT, LOCAL_ADDRESS, () => {
+//   const address = server.address();
+//   console.log('server listening at', address);
+// });
 
 const app = express();
 
@@ -18,10 +22,7 @@ use(express.static('public')).
 use(express.json()).
 use(express.urlencoded({ extended: true })).
 get('/post', function(req, res) { res.redirect('/posts'); }).
-server.listen(PORT, LOCAL_ADDRESS, () => {
-  const address = server.address();
-  console.log('server listening at', address);
-});
+listen(PORT, LOCAL_ADDRESS, function() { console.log(`Application started on port: ${PORT}`);});
 
 
 // Create a route for our overview page
