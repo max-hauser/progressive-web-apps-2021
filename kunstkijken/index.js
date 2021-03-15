@@ -4,6 +4,10 @@ const fetch = require('node-fetch');
 
 
 const config = { port: 3000 }
+
+const { PORT=3000, LOCAL_ADDRESS='0.0.0.0' } = process.env
+
+
 const app = express();
 
 const endpoint = process.env.ENDPOINT;
@@ -15,7 +19,7 @@ use(express.static('public')).
 use(express.json()).
 use(express.urlencoded({ extended: true })).
 get('/post', function(req, res) { res.redirect('/posts'); }).
-listen(config.port, function() { console.log(`Application started on port: ${config.port}`);});
+listen(PORT, LOCAL_ADDRESS, () => {const address = address(); console.log('server listening at', address);});
 
 
 // Create a route for our overview page
@@ -34,7 +38,7 @@ app.get('/post/:id', function(req, res) {
 	const url = `${endpoint}/${req.params.id}?key=${key}`;
 	fetch(url).then(res => res.json()).then(data => {
 		res.render('post', {
-			title: 'Post ${req.params.id}',
+			title: 'Detail',
 			postData: data.artObject
 		});	
 	});	
@@ -46,7 +50,7 @@ app.get('/search', function(req,res){
 	fetch(url).then(res => res.json()).then(data => {
 		console.log(data);
 		res.render('posts', {
-			title: 'Home', 
+			title: 'Zoeken', 
 			postData: data
 		});	
 	});	
