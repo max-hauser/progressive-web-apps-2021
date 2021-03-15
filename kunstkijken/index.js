@@ -44,7 +44,7 @@ app.get('/post/:id', function(req, res) {
 			title: 'Detail',
 			postData: data.artObject
 		});	
-	}).catch(error => console.log(error);	
+	}).catch(error => console.log(error));	
 });
 
 app.get('/search', function(req,res){
@@ -56,5 +56,5 @@ app.get('/search', function(req,res){
 			title: 'Zoeken', 
 			postData: data
 		});	
-	}).catch(error => console.log(error);	
+	}).catch(error => console.log(error));	
 });
