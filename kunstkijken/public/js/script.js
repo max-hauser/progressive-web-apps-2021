@@ -1,3 +1,12 @@
+if('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register('../serviceworker.js')
+      .then(reg => console.log('serviceWorker: registered'))
+      .catch(err => console.log(`serviceWorker: Error: ${err}`));
+  })
+}
+
 window.addEventListener("load", (event)=>{
 
   const main = document.querySelector("main");
