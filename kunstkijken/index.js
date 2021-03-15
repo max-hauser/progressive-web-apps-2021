@@ -33,7 +33,7 @@ app.get('/', function(req, res) {
 			title: 'Home', 
 			postData: data
 		});	
-	});
+	}).catch(error => console.log(error));
 });
 
 // Create a route for our detail page
@@ -44,7 +44,7 @@ app.get('/post/:id', function(req, res) {
 			title: 'Detail',
 			postData: data.artObject
 		});	
-	});	
+	}).catch(error => console.log(error);	
 });
 
 app.get('/search', function(req,res){
@@ -56,5 +56,5 @@ app.get('/search', function(req,res){
 			title: 'Zoeken', 
 			postData: data
 		});	
-	});	
+	}).catch(error => console.log(error);	
 });
