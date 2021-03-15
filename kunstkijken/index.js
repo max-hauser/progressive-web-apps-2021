@@ -22,37 +22,42 @@ use(express.urlencoded({ extended: true })).
 get('/post', function(req, res) { res.redirect('/posts'); }).
 listen(PORT, LOCAL_ADDRESS, function() { console.log(`Application started on port: ${PORT}`);});
 
+async function fetchData(id = '',name = '' ) {
+	const fetchUrl = `${endpoint}${id ? `${id}` : ''}?key=${key}${name ? `&q=${name}` : ''}`;
+
+	try{
+		return await fetch(fetchUrl).then(response => response.json()).then((data) => {return data});
+		
+	}catch(err){
+		console.error(err)
+	}
+}
+
 
 // Create a route for our overview page
-app.get('/', function(req, res) {
-	const url = `${endpoint}?key=${key}`;	
-	fetch(url).then(res => res.json()).then(data => {
+app.get('/', async function(req, res) {
+	const data = await fetchData();
+	console.log(data);
 		res.render('posts', {
 			title: 'Home', 
 			postData: data
 		});	
-	}).catch(error => console.log(error));
 });
 
 // Create a route for our detail page
-app.get('/post/:id', function(req, res) {
-	const url = `${endpoint}/${req.params.id}?key=${key}`;
-	fetch(url).then(res => res.json()).then(data => {
+app.get('/post/:id', async function(req, res) {
+	const data = await fetchData(req.params.id, '');
 		res.render('post', {
 			title: 'Detail',
 			postData: data.artObject
 		});	
-	}).catch(error => console.log(error));	
 });
 
-app.get('/search', function(req,res){
-	const	name =  req.query.query;
-	const url = `${endpoint}?key=${key}&q=${name}`;
-	fetch(url).then(res => res.json()).then(data => {
+app.get('/search', async function(req,res){
+	const data = await fetchData('', req.query.query);
 		console.log(data);
 		res.render('posts', {
 			title: 'Zoeken', 
 			postData: data
 		});	
-	}).catch(error => console.log(error));	
 });
