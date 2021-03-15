@@ -1,9 +1,10 @@
-<% console.log(postData) %>
 <%- include('./partials/head.ejs'); -%>
 <% postData.artObjects.forEach(function(post) { %>
 	<div class="card">
 			<%- post.title %>
-			<img src="<%- post.webImage.url%>">
+			<%if(post.webImage != null) {%>
+				<img src="<%- post.webImage.url%>">
+			<%}%>
 			<span>
 				<a href="/post/<%- post.objectNumber %>">Meer info</a>
 				<button id="next">Volgende</button>

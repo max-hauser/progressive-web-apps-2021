@@ -1,10 +1,13 @@
 <header>
     <a href="">KunstKijken</a>
-    <form action="/">
-    <label for="query">Zoek kunstenaar</label>
-    <span>
-      <input type="text" name="query" id="query" placeholder="naam" autocomplete="off">
-      <input type="submit" value="Zoeken" id="search">
-    </span>
-    </form>
+    <div class="form">
+      <label for="query">Zoek kunstenaar</label>
+      <span>
+        <form action="/search" method="get">
+          <input type="text" name="query" id="query" placeholder="naam" autocomplete="off">
+          <input type="submit" value="Zoeken" id="search">
+        </form>
+      </span>
+      </form>
+      </div>
   </header>	

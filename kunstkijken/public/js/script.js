@@ -2,16 +2,12 @@ window.addEventListener("load", (event)=>{
 
   const main = document.querySelector("main");
 
-  if(location.pathname === '/'){
-    main.className = "overview";
-  }else{
+  if(location.pathname.includes('/post/')){
     main.className = "detail";
+  }else{
+    main.className = "overview";
   }
 });
-
-window.addEventListener("hashchange", (e)=>{
-  console.log(e);
-}, false);
 
 function next(){
   const cards = document.querySelectorAll('.card');
@@ -24,19 +20,10 @@ function next(){
   }
 }
 
-function initSearch(event) {
-  event.preventDefault();
-  const query = document.querySelector('#query').value;
-  console.log(query)  
-}
-
 (function(){
-  if(e.target && e.target.id== 'search'){
-    document.querySelector('#search').addEventListener('click', initSearch, false);
-  }
   document.addEventListener('click',function(e){
     if(e.target && e.target.id== 'next'){
-          next();
+      next();
      }
  });  
 })();
