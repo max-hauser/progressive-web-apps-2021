@@ -28,7 +28,7 @@ listen(PORT, LOCAL_ADDRESS, function() { console.log(`Application started on por
 // Create a route for our overview page
 app.get('/', function(req, res) {
 	const url = `${endpoint}?key=${key}`;	
-	fetch(url).then(res => res.json()).then(data => {
+	fetch(new URL(url, "https://www.rijksmuseum.nl/api/nl/collection/", {method: 'GET'})).then(res => res.json()).then(data => {
 		res.render('posts', {
 			title: 'Home', 
 			postData: data
