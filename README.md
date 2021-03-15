@@ -2,6 +2,7 @@
 
 ## Live link
 
+[https://kunstkijken.herokuapp.com/](https://kunstkijken.herokuapp.com/)
 
 # Progressive Web Apps @cmda-minor-web · 20-21
 Bij dit vak ga ik verder met de applicatie die ik in webpp-from-scratch heb gemaakt. Het doel van het vak is om de webapp over te zetten naar een serverside rendered application. Verder ga ik de applicatie nog verbeteren qua performance.
