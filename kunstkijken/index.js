@@ -7,7 +7,6 @@ const config = { port: 3000 }
 
 const { PORT=3000, LOCAL_ADDRESS='0.0.0.0' } = process.env
 
-
 const app = express();
 
 const endpoint = process.env.ENDPOINT;
@@ -19,7 +18,10 @@ use(express.static('public')).
 use(express.json()).
 use(express.urlencoded({ extended: true })).
 get('/post', function(req, res) { res.redirect('/posts'); }).
-listen(PORT, LOCAL_ADDRESS, () => {const address = address(); console.log('server listening at', address);});
+server.listen(PORT, LOCAL_ADDRESS, () => {
+  const address = server.address();
+  console.log('server listening at', address);
+});
 
 
 // Create a route for our overview page
