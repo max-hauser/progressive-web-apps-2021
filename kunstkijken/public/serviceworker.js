@@ -3,12 +3,12 @@ const cacheName = 'v1';
 const cacheAssets = [
   '/css/style.css',
   '/js/script.js',
-  '../views/partials/footer.ejs',
-  '../views/partials/header.ejs',
-  '../views/partials/head.ejs'
+  '../views/partials/header',
+  '../views/partials/head',
+  '../views/partials/footer'
 ]
 
-self.addEventListener('install', (e) => {
+self.addEventListener('install', e => {
   console.log('serviceworker: installed');
 
   e.waitUntil(
@@ -22,7 +22,7 @@ self.addEventListener('install', (e) => {
   )
 })
 
-self.addEventListener('activate', (e) => {
+self.addEventListener('activate', e => {
   console.log('serviceworker: activated');
   e.waitUntil(
     caches.keys().then(cacheNames => {
@@ -37,6 +37,6 @@ self.addEventListener('activate', (e) => {
   )
 })
 
-self.addEventListener('fetch', (e) => {
-  e.respondWith(fetch((e.request).catch(() => caches.match(e.request))));
+self.addEventListener('fetch', e => {
+  e.respondWith(fetch(e.request).catch(()=> caches.match(e.request)));
 })
