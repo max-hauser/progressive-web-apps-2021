@@ -1,11 +1,12 @@
 const cacheName = 'v1';
 
 const cacheAssets = [
+  '/offline',
   '/css/style.css',
   '/js/script.js',
-  '../views/partials/header',
-  '../views/partials/head',
-  '../views/partials/footer'
+  'partials/header',
+  '/head',
+  '/footer'
 ]
 
 self.addEventListener('install', e => {
@@ -38,5 +39,9 @@ self.addEventListener('activate', e => {
 })
 
 self.addEventListener('fetch', e => {
-  e.respondWith(fetch(e.request).catch(()=> caches.match(e.request)));
+  e.respondWith(
+    fetch(e.request)
+      .catch(()=> caches.match('/offline')
+    )
+  );
 })
