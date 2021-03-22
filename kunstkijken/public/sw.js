@@ -2,7 +2,8 @@ var CACHE_NAME = 'my-site-cache-v1';
 var urlsToCache = [
   '/',
   'css/style.css',
-  'js/script.js'
+  'js/script.js',
+  '/offline'
 ];
 
 self.addEventListener('install', function(event) {
@@ -25,7 +26,7 @@ self.addEventListener('fetch', function(event) {
       return res;
     }
     catch(error){
-      return caches.match(event.request);
+      return caches.match('offline');
      }
    }());
 });
