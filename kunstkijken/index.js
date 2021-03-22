@@ -48,7 +48,8 @@ async function fetchData(id = '',name = '' ) {
 
 // Create a route for our overview page
 app.get('/', async function(req, res) {
-	if(req.connection.encrypted == null && !req.headers.host.includes("localhost")){
+
+	if(req.protocol == 'http' && !req.headers.host.includes("localhost")){
 		res.redirect('https://' + req.headers.host + req.url);
 	}
 	const data = await fetchData();
