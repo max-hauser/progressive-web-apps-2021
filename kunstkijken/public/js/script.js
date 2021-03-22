@@ -1,38 +1,28 @@
-if('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker
-      .register('../../serviceworker.js')
-      .then(reg => console.log('serviceWorker: registered'))
-      .catch(err => console.log(`serviceWorker: Error: ${err}`));
-  })
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').then(function(registration) {
+      // Registration was successful
+      console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    }, function(err) {
+      // registration failed :(
+      console.log('ServiceWorker registration failed: ', err);
+    });
+  });
 }
 
-window.addEventListener("load", (event)=>{
-
-  const main = document.querySelector("main");
-
-  if(location.pathname.includes('/post/')){
-    main.className = "detail";
-  }else{
-    main.className = "overview";
+function next() {
+  const e = document.querySelectorAll(".card");
+  if (e.length >= 1) {
+      const t = Array.prototype.slice.call(e);
+      t[0].remove(),
+      1 == t.length && (main.innerHTML = "<p>That's all folks!</p>")
   }
+}
+window.addEventListener("load", e=>{
+  const t = document.querySelector("main");
+  location.pathname.includes("/post/") ? t.className = "detail" : t.className = "overview"
+}
+),
+document.addEventListener("click", function(e) {
+  e.target && "next" == e.target.id && next()
 });
-
-function next(){
-  const cards = document.querySelectorAll('.card');
-  if(cards.length >= 1){
-    const allCards = Array.prototype.slice.call(cards);
-    allCards[0].remove();
-    if(allCards.length == 1){
-      main.innerHTML = `<p>That's all folks!</p>`;
-    }
-  }
-}
-
-(function(){
-  document.addEventListener('click',function(e){
-    if(e.target && e.target.id== 'next'){
-      next();
-     }
- });  
-})();

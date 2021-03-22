@@ -30,7 +30,7 @@ header a{
   align-items: center;
 }
 
-main.overview,
+/* main.overview,
 main.artist {
   display: flex;
   margin: 0 auto;
@@ -38,14 +38,14 @@ main.artist {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-}
+} */
 
 span {
   display: flex;
   width: 100%;
 }
 
-.card {
+/* .card {
   position: absolute;
   opacity: 0;
   display: flex;
@@ -56,12 +56,12 @@ span {
   max-width: 500px;
   z-index: -1;
   box-shadow: 0 10px 6px -6px #000;
-}
+} */
 
-.card:nth-child(1){
+/* .card:nth-child(1){
   opacity: 1;
   z-index: 2;
-}
+} */
 
 .card img{
   object-fit: cover;
