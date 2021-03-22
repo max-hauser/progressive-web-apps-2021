@@ -37,9 +37,20 @@ async function fetchData(id = '',name = '' ) {
 	}
 }
 
+// app.get('/', function(req, res) {
+// 	console.log(req.headers) 
+// 	if(!req.headers.host.includes("localhost")){
+// 		res.redirect('https://' + req.headers.host + req.url);
+// 		res.redirect('/')
+// 	}
+// }).
+
 
 // Create a route for our overview page
 app.get('/', async function(req, res) {
+	if(req.connection.encrypted == null && !req.headers.host.includes("localhost")){
+		res.redirect('https://' + req.headers.host + req.url);
+	}
 	const data = await fetchData();
 		res.render('posts', {
 			title: 'Home', 
