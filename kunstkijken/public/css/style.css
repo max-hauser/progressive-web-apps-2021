@@ -99,6 +99,18 @@ main.artist a {
   animation: load 0.8s ease infinite;
 }
 
+body.offline{
+  margin: 0;
+  background-color: #101010;
+}
+
+body.offline h1 {
+  background: yellow;
+  margin-top: 0px;
+  text-align: center;
+  padding: 15px;
+}
+
 @keyframes load{
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }  

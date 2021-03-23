@@ -1,9 +1,10 @@
 <%- include('./partials/head.ejs'); -%>
 <% postData.forEach(function(thumbail) { %>
-	<% console.log(thumbail) %>
 	<div class="card">
 			<%- thumbail.title %>
+			<picture>
 				<img src="<%- thumbail.imageUrl%>" width="<%= thumbail.imageWidth %>px" height="<%= thumbail.imageHeight %>px"  alt="artpiece of artist" loading="lazy">
+			</picture>			
 			<span>
 				<a href="/post/<%- thumbail.number %>">Meer info</a>
 			</span>		

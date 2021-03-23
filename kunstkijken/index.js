@@ -45,8 +45,8 @@ app.get('/', async function(req, res) {
 			const thumbnail = {
 				number: artObject.objectNumber,
 				imageUrl: artObject.webImage.url,
-				imageWidth: artObject.webImage.width ,
-				imageHeight: artObject.webImage.height
+				imageWidth: 300 ,
+				imageHeight: artObject.webImage.height / 8
 			}
 			thumbnails.push(thumbnail);
 		})
