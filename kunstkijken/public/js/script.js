@@ -10,19 +10,19 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-function next() {
-  const e = document.querySelectorAll(".card");
-  if (e.length >= 1) {
-      const t = Array.prototype.slice.call(e);
-      t[0].remove(),
-      1 == t.length && (main.innerHTML = "<p>That's all folks!</p>")
-  }
-}
+// function next() {
+//   const e = document.querySelectorAll(".card");
+//   if (e.length >= 1) {
+//       const t = Array.prototype.slice.call(e);
+//       t[0].remove(),
+//       1 == t.length && (main.innerHTML = "<p>That's all folks!</p>")
+//   }
+// }
 window.addEventListener("load", e=>{
   const t = document.querySelector("main");
   location.pathname.includes("/post/") ? t.className = "detail" : t.className = "overview"
 }
-),
-document.addEventListener("click", function(e) {
-  e.target && "next" == e.target.id && next()
-});
+)
+// document.addEventListener("click", function(e) {
+//   e.target && "next" == e.target.id && next()
+// });

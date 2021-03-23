@@ -1,49 +1,42 @@
-var CACHE_NAME = 'my-site-cache-v1';
+var CORE_CACHE_NAME = 'my-site-cache-v2';
 var urlsToCache = [
   '/',
-  'css/style.css',
-  'js/script.js',
+  '/css/style.css',
+  '/js/script.js',
   '/offline'
 ];
 
 self.addEventListener('install', function(event) {
   // Perform install steps
   event.waitUntil(
-    caches.open(CACHE_NAME)
+    caches.open(CORE_CACHE_NAME)
       .then(function(cache) {
-        console.log('Opened cache');
+        console.log('Opened cache', urlsToCache);
         return cache.addAll(urlsToCache);
+      }).then(()=>{
+        self.skipWaiting();
       })
   );
 });
 
-self.addEventListener('fetch', function(event) {
-  event.respondWith(async function() {
-    try{
-      var res = await fetch(event.request);
-      var cache = await caches.open('cache');
-      cache.put(event.request.url, res.clone());
-      return res;
-    }
-    catch(error){
-      return caches.match('offline');
-     }
-   }());
-});
+self.addEventListener('fetch', (event) => {
+  console.log('Hey!!! de fetch event is aangeroepen!')
+  event.respondWith(
+    caches.open(CORE_CACHE_NAME).then(cache => {
+        return cache.match(event.request)
+            .then(response => {
+                if(response) {
 
-self.addEventListener('activate', function(event) {
-
-  var cacheAllowlist = ['pages-cache-v1', 'blog-posts-cache-v1'];
-
-  event.waitUntil(
-    caches.keys().then(function(cacheNames) {
-      return Promise.all(
-        cacheNames.map(function(cacheName) {
-          if (cacheAllowlist.indexOf(cacheName) === -1) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
+                return response
+                }
+                return fetch(event.request)
+                .then(response => {
+                    cache.put(event.request, response.clone())
+                    return response
+                })
+            }).catch((err) => {
+                return caches.open(CORE_CACHE_NAME).then(cache => cache.match('/offline'))
+            })
     })
-  );
-});
+)
+})

@@ -1,13 +1,11 @@
 <%- include('./partials/head.ejs'); -%>
-<% postData.artObjects.forEach(function(post) { %>
+<% postData.forEach(function(thumbail) { %>
+	<% console.log(thumbail) %>
 	<div class="card">
-			<%- post.title %>
-			<%if(post.webImage != null) {%>
-				<img src="<%- post.headerImage.url%>" width="350px" height="500px" alt="artpiece of artist" loading="lazy">
-			<%}%>
+			<%- thumbail.title %>
+				<img src="<%- thumbail.imageUrl%>" width="<%= thumbail.imageWidth %>px" height="<%= thumbail.imageHeight %>px"  alt="artpiece of artist" loading="lazy">
 			<span>
-				<a href="/post/<%- post.objectNumber %>">Meer info</a>
-				<button id="next">Volgende</button>
+				<a href="/post/<%- thumbail.number %>">Meer info</a>
 			</span>		
 	</div>
 <% }) %>

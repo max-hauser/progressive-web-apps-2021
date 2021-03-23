@@ -38,14 +38,21 @@ async function fetchData(id = '',name = '' ) {
 }
 // Create a route for our overview page
 app.get('/', async function(req, res) {
-
-	// if(req.protocol == 'http' && !req.headers.host.includes("localhost")){
-	// 	res.redirect('https://' + req.headers.host + req.url);
-	// }
 	const data = await fetchData();
+		const thumbnails = [];
+		const artObjects = data.artObjects;
+		artObjects.forEach((artObject) => {
+			const thumbnail = {
+				number: artObject.objectNumber,
+				imageUrl: artObject.webImage.url,
+				imageWidth: artObject.webImage.width ,
+				imageHeight: artObject.webImage.height
+			}
+			thumbnails.push(thumbnail);
+		})
 		res.render('posts', {
 			title: 'Home', 
-			postData: data
+			postData: thumbnails
 		});	
 });
 
@@ -65,3 +72,8 @@ app.get('/search', async function(req,res){
 			postData: data
 		});	
 });
+
+
+app.get('/offline', function(req, res){
+	res.render('offline');
+})
