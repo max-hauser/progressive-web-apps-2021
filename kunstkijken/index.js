@@ -59,7 +59,6 @@ app.get('/', async function(req, res) {
 			console.log(err)
 		}else{
 			if(data.length == 0){
-				console.log('data', data);
 				const dataresult = await fetchData();
 				const thumbnails = [];
 				const artObjects = dataresult.artObjects;
@@ -92,11 +91,7 @@ app.get('/', async function(req, res) {
 				});					
 			}
 		}	
-	}
-		// res.render('posts', {
-		// 	title: 'Home', 
-		// 	postData: [{imageUrl: 'yep', imageWidth: '300', imageHeight: '300', number: '1'}]
-		// });	
+	}	
 });
 
 // Create a route for our detail page
