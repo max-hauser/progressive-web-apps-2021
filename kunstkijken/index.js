@@ -74,9 +74,14 @@ artObjects.forEach((artObject) => {
 // Create a route for our detail page
 app.get('/post/:id', async function(req, res) {
 	const data = await fetchData(req.params.id, '');
+		const orginalImage = data.artObject.webImage.url;
+		const editImage = orginalImage.slice(0, -1);
+		const smallerImg = editImage + '400';
+		const title = data.artObject.title;
+		const description = data.artObject.description;
 		res.render('post', {
 			title: 'Detail',
-			postData: data.artObject
+			postData: {smallerImg, title, description}
 		});	
 });
 
