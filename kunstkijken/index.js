@@ -2,7 +2,20 @@ require('dotenv').config();
 const express = require('express');
 const fetch = require('node-fetch');
 const compression = require('compression')
+const mongodb = require('mongodb');
+const MongoClient = require('mongodb').MongoClient;
+require('dotenv').config()
+const sharp = require('sharp');
 
+
+let db;
+const db_key = process.env.URI;
+MongoClient.connect(db_key, {useNewUrlParser: true, useUnifiedTopology: true}, function(err, client){
+  if(err){
+    throw err
+  }
+  db = client.db('kunstkijken');
+});
 
 const config = { port: 3000 }
 
@@ -38,22 +51,52 @@ async function fetchData(id = '',name = '' ) {
 }
 // Create a route for our overview page
 app.get('/', async function(req, res) {
-	const data = await fetchData();
-		const thumbnails = [];
-		const artObjects = data.artObjects;
-		artObjects.forEach((artObject) => {
-			const thumbnail = {
-				number: artObject.objectNumber,
-				imageUrl: artObject.webImage.url,
-				imageWidth: 300 ,
-				imageHeight: artObject.webImage.height / 8
+
+
+	db.collection('images').find({}).toArray(check)
+	async function check(err, data) {
+		if(err){
+			console.log(err)
+		}else{
+			if(data.length == 0){
+				console.log('data', data);
+				const dataresult = await fetchData();
+				const thumbnails = [];
+				const artObjects = dataresult.artObjects;
+				artObjects.forEach((artObject) => {
+					const originalImage = artObject.webImage.url;
+					const dimentions = '400';
+					const smallerImage = originalImage.slice(0, -1) + dimentions
+					
+					const thumbnail = {
+						number: artObject.objectNumber,
+						imageUrl: smallerImage,
+						imageWidth: 300 ,
+						imageHeight: artObject.webImage.height / 8
+					}
+					thumbnails.push(thumbnail);
+				})
+				
+				db.collection('images').insertOne({
+					album: thumbnails
+				})
+			}else{
+				console.log('we hebben data in de database')
+				const imgHolder = [];
+				data.forEach( (img)=>{
+					imgHolder.push(img);
+				})
+				res.render('posts', {
+					title: 'Home', 
+					postData: imgHolder[0].album
+				});					
 			}
-			thumbnails.push(thumbnail);
-		})
-		res.render('posts', {
-			title: 'Home', 
-			postData: thumbnails
-		});	
+		}	
+	}
+		// res.render('posts', {
+		// 	title: 'Home', 
+		// 	postData: [{imageUrl: 'yep', imageWidth: '300', imageHeight: '300', number: '1'}]
+		// });	
 });
 
 // Create a route for our detail page
