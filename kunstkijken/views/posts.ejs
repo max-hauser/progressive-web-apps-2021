@@ -3,12 +3,12 @@
 <% postData.forEach(function(thumbail) { %>
 	<div class="card">
 			<%- thumbail.title %>
-			<picture>
+			<picture style="background-size: cover; background-image: url(<%- thumbail.imageUrl%>); display: block;">
 				<img src="<%- thumbail.imageUrl%>" width="<%= thumbail.imageWidth %>px" height="<%= thumbail.imageHeight %>px"  alt="artpiece of artist" loading="lazy">
 			</picture>			
-			<span>
+			<div>
 				<a href="/post/<%- thumbail.number %>">Meer info</a>
-			</span>		
+			</div>		
 	</div>
 <% }) %>
 <%- include('./partials/footer.ejs'); -%>
