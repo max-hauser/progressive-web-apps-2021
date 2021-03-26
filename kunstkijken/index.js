@@ -20,7 +20,16 @@ function shouldCompress (req, res) {
 app.set('view engine', 'ejs').
 use(compression({ filter: shouldCompress })).
 set('views', 'views').
-use(express.static('public')).
+use(express.static('public', {
+  etag: true, // Just being explicit about the default.
+  lastModified: true,  // Just being explicit about the default.
+  setHeaders: (res, path) => {
+    if (path.endsWith('.html')) {
+      // All of the project's HTML files end in .html
+      res.setHeader('Cache-Control', 'max-age=31536000');
+    }
+  },
+})).
 use(express.json()).
 use(express.urlencoded({ extended: true })).
 get('/post', function(req, res) { res.redirect('/posts'); }).
